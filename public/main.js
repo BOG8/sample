@@ -10,12 +10,25 @@ function onSubmit (form) {
 
 	let result = request('/users', data);
 
-	if (result === '100') {
-		form.hidden = true;
-		window.helloWorld.innerHTML = hello(data.user); 
-	}
+	form.hidden = true;
+	let obj = JSON.parse(result);
+    	let count = obj.count;
+	window.helloWorld.innerHTML = plural(count); 
 
 	console.log(data, result);
+}
+
+function plural(count) {
+    if (count == 0) {
+        return "Здравствуй, дух";
+    }
+    if (count == 1) {
+        return "Рады приветствовать на нашем курсе!";
+    }
+    if (count > 1 && count < 15) {
+        return "Кликай дальше!! Еще осталось " + (15 - count) + " раз(а)";
+    }
+    return "01001000 01101001 00101100 00100000 01100010 01110010 01101111";
 }
 
 function hello (text) {
@@ -24,4 +37,5 @@ function hello (text) {
 
 if (typeof exports === 'object') {
 	exports.hello = hello;
+	exports.plural = plural;
 }
