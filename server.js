@@ -8,30 +8,24 @@ app.use('/', express.static('public'));
 app.use(parser.json());
 app.use(technologger);
 
-// let emails = {};
-
 var emails = [];
 var visits = [];
 
 app.post('/users', (req, res, body) => {
     let email = req.body.email;
-    var flag = 0;
+    var index = emails.indexOf(email);
 
-    for (var i = 0; i < email.length; i++) {
-        if (emails[i] == email) {
-	    visits[i] = visits[i] + 1;
-	    res.send({ count : visits[i] })
-	    console.log( { count : visits[i] })
-	    flag = 1;
-	}  
+    if (index != -1) {
+        visits[index] = visits[index] + 1;
+	res.send({ count : visits[index] })
+        console.log( { email : email, count : visits[index] })
     }
-
-    if (flag == 0) {
+    else {
         emails.push(email);
 	visits.push(0);
 	res.send({ count : 0 })
-	console.log( { count : 0 })
-    }  
+	console.log( { email : email, count : 0 })
+    }
 });
 
 app.listen(process.env.PORT || 3000, () => {
