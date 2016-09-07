@@ -34,24 +34,6 @@ app.post('/users', (req, res, body) => {
     }  
 });
 
-/*app.post('/users', (req, res, body) => {
-    // console.log(req.body);
-    // res.send('100');
-    // TODO: вернуть количество обращений
-    let email = req.body.email;
-    console.log(email);
-    if (email in emails) {
-        emails[email]++;
-        res.send(  { count : emails[email] })
-        console.log( { count : emails[email] })
-    }
-    else {
-        emails[email] = 0;
-        res.send({ count : emails[email] });
-        console.log( { count : emails[email] })
-    }
-});*/
-
 app.listen(process.env.PORT || 3000, () => {
 	console.log(`App started on port ${process.env.PORT || 3000}`);
 });
